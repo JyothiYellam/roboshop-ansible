@@ -16,7 +16,7 @@
        image_id: "{{ ami_id }}"
        name: "{{ item }}-{{ envr }}"
        tags:
-         - Project: roboshop
+           Project: roboshop
            Component: "{{ item }}"
            Environment: "{{ envr }}"
            Name: "{{ item }}-{{ envr }}"
