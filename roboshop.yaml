@@ -19,7 +19,7 @@
          - Project: roboshop
            Component: "{{ item }}"
            Environment: "{{ envr }}"
-           Name: "{{ item. }}-{{ envr }}"
+           Name: "{{ item }}-{{ envr }}"
      loop: "{{ instances }}"
      register: ec2_output
 
