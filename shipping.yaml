@@ -5,6 +5,7 @@
    - name: install maven and mysql
      ansible.builtin.dnf:
        name: "{{ item }}"
+       state:present
      loop:
       - maven
       - mysql
@@ -13,18 +14,18 @@
      ansible.builtin.user:
       name: roboshop
       system: true
-      home: /shipping
+      home: /app
       shell: /sbin/nologin
       comment: "Roboshop system user"
 
-   - name: delete shipping directory
+   - name: delete app directory
      ansible.builtin.file:
-      path: /shipping
+      path: /app
       state: absent
        
-   - name: creating shipping directory
+   - name: creating app directory
      ansible.builtin.file:
-      path: /shipping
+      path: /app
       state: directory
 
    - name: delete shipping zip file
@@ -40,7 +41,7 @@
    - name: unarchieve shipping
      ansible.builtin.unarchive:
        src: /tmp/shipping.zip
-       dest: /shipping
+       dest: /app
        remote_src: yes
 
    - name: install dependencies
@@ -61,6 +62,14 @@
    - name: daemon reload
      ansible.builtin.systemd_service:
         daemon_reload: true
+
+   - name: install dependencies
+     ansible.buitin.pip:
+       name: "{{ item }}"
+       executable: pip3.9
+     loop:
+     - cryptography
+     - PyMySQL
 
    - name: import shipping data
      community.mysql.mysql_db:
