@@ -1,0 +1,31 @@
+- name: configure cart server
+  become: yes
+  hosts: cart
+  tasks:
+   - name: enable cart 7
+     ansible.builtin.command: dnf module enable cart:7 -y
+
+   - name: install cart
+     ansible.builtin.dnf:
+       name: cart
+       state: present
+      
+   - name: allowing remote connections
+     ansible.builtin.replace:
+      path: /etc/cart/cart.conf
+      regexp: '127.0.0.1'
+      replace: '0.0.0.0'
+    
+   - name: disable protected mode
+     ansible.builtin.lineinfile:
+      path: /etc/cart/cart.conf
+      regexp: 'protected-mode'
+      line: 'protected-mode no'
+
+
+   - name: start and enable cart
+     ansible.builtin.service:
+       name: cart
+       state: restarted
+       enabled: yes 
+       
