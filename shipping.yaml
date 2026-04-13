@@ -5,7 +5,7 @@
    - name: install maven and mysql
      ansible.builtin.dnf:
        name: "{{ item }}"
-       state:present
+       state: present
      loop:
       - maven
       - mysql
