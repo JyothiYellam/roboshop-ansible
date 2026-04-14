@@ -21,9 +21,9 @@
        state: directory
 
     - name: download frontend
-      ansible.builtin.file:
+      ansible.builtin.get_url:
        url: https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip 
-       dest: /tmp.frontend.zip
+       dest: /tmp/frontend.zip
 
     - name: unarchieve frontend
       ansible.builtin.unarchieve:
