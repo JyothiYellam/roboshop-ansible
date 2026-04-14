@@ -25,8 +25,8 @@
        url: https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip 
        dest: /tmp/frontend.zip
 
-    - name: unarchieve frontend
-      ansible.builtin.unarchieve:
+    - name: unarchive frontend
+      ansible.builtin.unarchive:
         src: /tmp/frontend.zip
         dest: /usr/share/nginx/html
         remote_src: yes
